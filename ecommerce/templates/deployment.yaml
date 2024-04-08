@@ -29,7 +29,7 @@ spec:
             - name: TZ
               value: Asia/Kolkata
           image: >-
-            dubeyg0692/prode-commerce:9
+            dubeyg0692/prode-commerce:11
           imagePullPolicy: Always
           name: {{ .Chart.Name }}
           ports:
