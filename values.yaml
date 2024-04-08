@@ -1,0 +1,4 @@
+---
+global: 
+  Namespace: ecommerce
+  replicas: 1
