@@ -1,0 +1,24 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: hpa-resource-metrics-memory-{{ .Chart.Name }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment 
+    name: {{ .Chart.Name }}
+  minReplicas: {{ .Values.global.minReplicas.absher_log_service }}
+  maxReplicas: {{ .Values.global.maxReplicas.absher_log_service }}
+  metrics:
+  - type: Resource
+    resource:
+      name: memory
+      target: 
+        type: AverageValue
+        averageValue: {{ .Values.global.hpa_memory.absher_log_service }} 
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: AverageValue
+        averageValue: {{ .Values.global.hpa_cpu.absher_log_service }}
