@@ -27,7 +27,7 @@ spec:
       containers:
         - env:
             - name: TZ
-              value: Asia/Riyadh
+              value: Asia/Kolkata
           image: >-
             {{ .Values.global.IMAGE_BASE_URL }}/{{ .Release.Namespace }}/{{ .Chart.Name }}:1
           imagePullPolicy: Always
@@ -37,31 +37,15 @@ spec:
               protocol: TCP
           resources:
             limits:
-              cpu: {{ .Values.global.cpu_limit.absher_log_service}}
-              memory: {{ .Values.global.ram_limit.absher_log_service }}
+              cpu: 500m
+              memory: 500Mi
             requests:
-              cpu: {{ .Values.global.cpu_request.absher_log_service }}
-              memory: {{ .Values.global.ram_request.absher_log_service }}
+              cpu: 200m
+              memory: 200Mi
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
-          volumeMounts:
-            - mountPath: /usr/src/app/logs
-              name: logging-storage		
-              subPath: {{ .Chart.Name }}
-            - mountPath: /usr/src/app/.env
-              name: {{ .Chart.Name }}-configmap
-              subPath: .env
-              readOnly: true
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
-      volumes:
-        - name: logging-storage
-          persistentVolumeClaim:
-            claimName: applogs	
-        - configMap:
-            defaultMode: 420
-            name: {{ .Chart.Name }}-configmap
-          name: {{ .Chart.Name }}-configmap
