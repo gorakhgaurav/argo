@@ -1,0 +1,24 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: hpa-resource-metrics-memory-{{ .Chart.Name }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment 
+    name: {{ .Chart.Name }}
+  minReplicas: 1
+  maxReplicas: 4
+  metrics:
+  - type: Resource
+    resource:
+      name: memory
+      target: 
+        type: AverageValue
+        averageValue: 70
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: AverageValue
+        averageValue: 70
