@@ -4,17 +4,17 @@ metadata:
   labels:
     app: {{ .Chart.Name }}
   name: {{ .Chart.Name }}
-  namespace:  {{ .Release.Namespace }}
+  namespace: {{ .Release.Namespace }}
 spec:
   ports:
     - name: 7006-tcp
       port: 7006
       protocol: TCP
       targetPort: 7006
+      nodePort: 30006  # Specify the node port you want to use, or omit to use a random available port
   selector:
     app: {{ .Chart.Name }}
   sessionAffinity: None
-  type: ClusterIP
+  type: NodePort  # Change the type to NodePort
 status:
   loadBalancer: {}
-
