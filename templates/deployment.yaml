@@ -29,7 +29,7 @@ spec:
             - name: TZ
               value: Asia/Kolkata
           image: >-
-            {{ .Values.global.IMAGE_BASE_URL }}/{{ .Release.Namespace }}/{{ .Chart.Name }}:1
+            {{ .Values.global.IMAGE_BASE_URL }}/{{ .Release.Namespace }}/{{ .Chart.Name }}:9
           imagePullPolicy: Always
           name: {{ .Chart.Name }}
           ports:
